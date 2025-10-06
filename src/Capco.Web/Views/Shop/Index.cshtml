@@ -1,0 +1,50 @@
+@model Capco.Web.Models.CatalogViewModel
+<section class="filters">
+    <h1>Shop Jordan Almonds</h1>
+    <form method="get">
+        <input type="search" name="search" placeholder="Search" value="@Model.Search" />
+        <select name="color">
+            <option value="">Color</option>
+            @foreach (var color in Model.Colors)
+            {
+                <option value="@color" selected="@(color == Model.Color ? "selected" : null)">@color</option>
+            }
+        </select>
+        <select name="size">
+            <option value="">Size</option>
+            @foreach (var size in Model.Sizes)
+            {
+                <option value="@size" selected="@(size == Model.Size ? "selected" : null)">@size</option>
+            }
+        </select>
+        <select name="collection">
+            <option value="">Collection</option>
+            @foreach (var collection in Model.Collections)
+            {
+                <option value="@collection" selected="@(collection == Model.Collection ? "selected" : null)">@collection</option>
+            }
+        </select>
+        <select name="sort">
+            <option value="">Sort</option>
+            <option value="price_asc" selected="@(Model.Sort == "price_asc" ? "selected" : null)">Price: Low to High</option>
+            <option value="price_desc" selected="@(Model.Sort == "price_desc" ? "selected" : null)">Price: High to Low</option>
+        </select>
+        <button type="submit" class="btn">Filter</button>
+    </form>
+</section>
+
+<div class="product-grid">
+@foreach (var product in Model.Products)
+{
+    var image = product.Images.FirstOrDefault();
+    <article class="product-card">
+        <img src="@(image?.Url ?? "/images/almonds-white.jpg")" alt="@product.Name" />
+        <div class="info">
+            <h3>@product.Name</h3>
+            <p>@product.Collection Collection</p>
+            <p>From @product.Variants.Min(v => v.Price).ToString("C")</p>
+            <a class="btn" asp-controller="Products" asp-action="Details" asp-route-slug="@product.Slug">View Details</a>
+        </div>
+    </article>
+}
+</div>

@@ -1,0 +1,15 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CapcoAlmonds;Trusted_Connection=True;MultipleActiveResultSets=true"
+  },
+  "Stripe": {
+    "SecretKey": "sk_test_yourkey",
+    "PublishableKey": "pk_test_yourkey"
+  },
+  "Smtp": {
+    "Host": "smtp.local",
+    "Port": 1025,
+    "User": "",
+    "Password": ""
+  }
+}
