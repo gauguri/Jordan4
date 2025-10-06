@@ -1,0 +1,9 @@
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+<h1>Dashboard</h1>
+<div class="product-grid" style="grid-template-columns: repeat(auto-fit,minmax(200px,1fr));">
+    <div class="product-card"><div class="info"><h3>Orders</h3><p>@ViewData["Orders"]</p></div></div>
+    <div class="product-card"><div class="info"><h3>Products</h3><p>@ViewData["Products"]</p></div></div>
+    <div class="product-card"><div class="info"><h3>Customers</h3><p>@ViewData["Customers"]</p></div></div>
+</div>

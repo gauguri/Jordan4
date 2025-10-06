@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Capco.Domain/Capco.Domain.csproj" />
+    <ProjectReference Include="../Capco.Data/Capco.Data.csproj" />
+  </ItemGroup>
+</Project>

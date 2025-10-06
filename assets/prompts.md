@@ -1,0 +1,4 @@
+- Hero: "Wide hero scene of colorful Capco Jordan Almonds on a soft pastel gradient, premium confectionery style, soft diffused light, ultra clean, no people, 3000×1600."
+- Color Tiles: "Square close-up of {COLOR} Capco Jordan Almonds on off-white matte background, 2048×2048."
+- PDP Packshot: "Front-facing 1 lb resealable pouch with transparent window; small pile of almonds; seamless light gray; subtle shadow; sharp label; 2048×2048."
+- Labels: "Front 3.5×5 in (CMYK) with “Jordan Almonds – 1 lb (454 g) – Made in East Hanover, NJ”."

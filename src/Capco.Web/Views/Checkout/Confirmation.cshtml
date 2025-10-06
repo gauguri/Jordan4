@@ -1,0 +1,13 @@
+@model Capco.Web.Models.OrderConfirmationViewModel
+<section class="hero" style="background: linear-gradient(120deg,#CDEBC8,#BFD7FF);">
+    <h1>Order Confirmed</h1>
+    <p>Order <strong>@Model.Order.OrderNumber</strong></p>
+    <p>@Model.Message</p>
+</section>
+
+<section style="margin-top:2rem;">
+    <h2>Summary</h2>
+    <p>Status: @Model.Order.Status</p>
+    <p>Total: @Model.Order.Total.ToString("C")</p>
+    <a class="btn" asp-controller="Shop" asp-action="Index">Continue Shopping</a>
+</section>
