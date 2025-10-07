@@ -2,7 +2,7 @@ using Capco.Data;
 using Capco.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Capco.Services.Cart;
+namespace Capco.Services.Carts;
 
 public class CartService : ICartService
 {

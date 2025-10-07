@@ -1,6 +1,6 @@
 using Capco.Domain.Entities;
 using Capco.Services.Catalog;
-using Capco.Services.Cart;
+using Capco.Services.Carts;
 using Capco.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

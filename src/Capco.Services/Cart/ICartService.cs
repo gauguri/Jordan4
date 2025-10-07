@@ -1,6 +1,6 @@
 using Capco.Domain.Entities;
 
-namespace Capco.Services.Cart;
+namespace Capco.Services.Carts;
 
 public interface ICartService
 {

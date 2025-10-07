@@ -8,4 +8,7 @@
     <ProjectReference Include="../Capco.Domain/Capco.Domain.csproj" />
     <ProjectReference Include="../Capco.Data/Capco.Data.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Stripe.net" Version="42.23.0" />
+  </ItemGroup>
 </Project>
