@@ -1,0 +1,39 @@
+@model Navya.Web.Models.WholesaleInquiryViewModel
+<h1>Wholesale &amp; Events</h1>
+@if (ViewBag.Content is string html)
+{
+    <div class="info">@Html.Raw(html)</div>
+}
+@if (TempData["Message"] is string message)
+{
+    <p>@message</p>
+}
+<form method="post" class="product-grid" style="grid-template-columns: repeat(auto-fit,minmax(240px,1fr));">
+    @Html.AntiForgeryToken()
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+        <label asp-for="Company"></label>
+        <input asp-for="Company" />
+        <span asp-validation-for="Company"></span>
+    </div>
+    <div>
+        <label asp-for="EstimatedQuantity"></label>
+        <input asp-for="EstimatedQuantity" />
+        <label asp-for="Occasion"></label>
+        <input asp-for="Occasion" />
+        <label asp-for="Message"></label>
+        <textarea asp-for="Message"></textarea>
+        <span asp-validation-for="Message"></span>
+    </div>
+    <div style="grid-column: 1 / -1; text-align: right;">
+        <button class="btn" type="submit">Submit Inquiry</button>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

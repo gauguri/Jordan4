@@ -1,0 +1,11 @@
+@model Navya.Domain.Entities.ContentBlock
+<h1>Edit Content Block</h1>
+<form method="post" class="product-grid" style="max-width:500px;">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <label asp-for="Key"></label>
+    <input asp-for="Key" />
+    <label asp-for="Html"></label>
+    <textarea asp-for="Html" rows="8"></textarea>
+    <button class="btn" type="submit">Save</button>
+</form>

@@ -1,0 +1,28 @@
+@model Navya.Web.Models.ProductDetailViewModel
+<section class="product-grid" style="grid-template-columns: repeat(auto-fit,minmax(280px,1fr));">
+    <div>
+        <img src="@(Model.Product.Images.FirstOrDefault()?.Url ?? "/images/almonds-white.jpg")" alt="@Model.Product.Name" style="width:100%;border-radius:24px;" />
+    </div>
+    <div class="info" style="display:grid;gap:1rem;align-content:start;">
+        <h1>@Model.Product.Name</h1>
+        <p>@Model.Product.Description</p>
+        <form asp-action="AddToCart" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="slug" value="@Model.Product.Slug" />
+            <label for="variantId">Size</label>
+            <select id="variantId" name="variantId">
+                @foreach (var variant in Model.Product.Variants)
+                {
+                    <option value="@variant.Id">@variant.Color - @variant.SizeLabel (@variant.Price.ToString("C"))</option>
+                }
+            </select>
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="number" min="1" name="quantity" value="1" />
+            <button type="submit" class="btn">Add to Cart</button>
+        </form>
+        <section>
+            <h2>Nutrition Snapshot</h2>
+            <p>Premium California almonds coated in delicate sugar shell. Gluten-free.</p>
+        </section>
+    </div>
+</section>

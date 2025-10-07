@@ -1,0 +1,14 @@
+using Navya.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Navya.Data.Configurations;
+
+public class ProductConfiguration : IEntityTypeConfiguration<Product>
+{
+    public void Configure(EntityTypeBuilder<Product> builder)
+    {
+        builder.HasIndex(p => p.Slug).IsUnique();
+        builder.Property(p => p.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+    }
+}

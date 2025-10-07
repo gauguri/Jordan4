@@ -1,7 +1,7 @@
 /*
-    Capco Jordan Almonds database installation script for WINDESKTOP\\SQLEXPRESS.
+    Navya Jordan Almonds database installation script for WINDESKTOP\\SQLEXPRESS.
     This script recreates the database, builds all tables with keys, and seeds baseline data.
-    WARNING: Existing CapcoJordan database (if any) will be dropped.
+    WARNING: Existing NavyaJordan database (if any) will be dropped.
 */
 
 USE [master];
@@ -10,58 +10,58 @@ GO
 DECLARE @isIntegratedOnly INT = CONVERT(INT, SERVERPROPERTY('IsIntegratedSecurityOnly'));
 IF (@isIntegratedOnly = 1)
 BEGIN
-    THROW 51000, 'SQL Server is configured for Windows Authentication only. Enable mixed mode (SQL Server and Windows Authentication) before running this script so the capco_app login can authenticate.', 1;
+    THROW 51000, 'SQL Server is configured for Windows Authentication only. Enable mixed mode (SQL Server and Windows Authentication) before running this script so the navya_app login can authenticate.', 1;
 END
 GO
 
-IF DB_ID(N'CapcoJordan') IS NOT NULL
+IF DB_ID(N'NavyaJordan') IS NOT NULL
 BEGIN
-    ALTER DATABASE [CapcoJordan] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE [CapcoJordan];
+    ALTER DATABASE [NavyaJordan] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE [NavyaJordan];
 END
 GO
 
-IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'capco_app')
+IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'navya_app')
 BEGIN
-    DROP LOGIN [capco_app];
+    DROP LOGIN [navya_app];
 END
 GO
 
-CREATE DATABASE [CapcoJordan];
+CREATE DATABASE [NavyaJordan];
 GO
 
-ALTER DATABASE [CapcoJordan] SET MULTI_USER;
+ALTER DATABASE [NavyaJordan] SET MULTI_USER;
 GO
 
-IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'capco_app')
+IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'navya_app')
 BEGIN
-    DROP LOGIN [capco_app];
+    DROP LOGIN [navya_app];
 END
 GO
 
-CREATE LOGIN [capco_app]
-    WITH PASSWORD = N'Capco!Pass123',
+CREATE LOGIN [navya_app]
+    WITH PASSWORD = N'Navya!Pass123',
          CHECK_POLICY = OFF,
          CHECK_EXPIRATION = OFF,
-         DEFAULT_DATABASE = [CapcoJordan];
+         DEFAULT_DATABASE = [NavyaJordan];
 GO
 
-ALTER LOGIN [capco_app] ENABLE;
+ALTER LOGIN [navya_app] ENABLE;
 GO
 
-USE [CapcoJordan];
+USE [NavyaJordan];
 GO
 
-IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name = N'capco_app')
+IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name = N'navya_app')
 BEGIN
-    DROP USER [capco_app];
+    DROP USER [navya_app];
 END
 GO
 
-CREATE USER [capco_app] FOR LOGIN [capco_app] WITH DEFAULT_SCHEMA = [dbo];
+CREATE USER [navya_app] FOR LOGIN [navya_app] WITH DEFAULT_SCHEMA = [dbo];
 GO
 
-ALTER ROLE [db_owner] ADD MEMBER [capco_app];
+ALTER ROLE [db_owner] ADD MEMBER [navya_app];
 GO
 
 -- Identity core tables ----------------------------------------------------
@@ -368,11 +368,11 @@ INSERT INTO [dbo].[AspNetUsers]
 VALUES
 (
     @AdminUserId,
-    N'Capco',
+    N'Navya',
     N'Admin',
-    N'admin@capco.local',
+    N'admin@navya.local',
     N'ADMIN@CAPCO.LOCAL',
-    N'admin@capco.local',
+    N'admin@navya.local',
     N'ADMIN@CAPCO.LOCAL',
     1,
     N'AQEAAAAQJwAAEAAAADpBtYbPNCN30GtUp/WKOcGuYIj42Ql5QWJGUyHn95cDD5lmdsOZkYzHoQf1lKhjXw==',
@@ -394,7 +394,7 @@ GO
 -- Seed content blocks -----------------------------------------------------
 INSERT INTO [dbo].[ContentBlocks] ([Key], [Html])
 VALUES
-    (N'about', N'<p>Capco Enterprises Inc. crafts premium Jordan Almonds in East Hanover, New Jersey.</p>'),
+    (N'about', N'<p>Navya Enterprises Inc. crafts premium Jordan Almonds in East Hanover, New Jersey.</p>'),
     (N'wholesale', N'<p>Contact our wholesale concierge for custom palettes and packaging.</p>'),
     (N'contact', N'<p>Call us at (973) 555-0110 or visit 12 Almond Way, East Hanover, NJ.</p>');
 GO
@@ -409,27 +409,27 @@ DECLARE @GreenProductId INT;
 
 INSERT INTO [dbo].[Products] ([Name], [Slug], [Description], [Collection], [IsActive], [CreatedAt])
 VALUES
-    (N'Jordan Almonds – White', N'jordan-almonds-white', N'Classic white Jordan almonds perfected by Capco Confectionery.', N'Pastel', 1, @CreatedAt);
+    (N'Jordan Almonds – White', N'jordan-almonds-white', N'Classic white Jordan almonds perfected by Navya Confectionery.', N'Pastel', 1, @CreatedAt);
 SET @WhiteProductId = SCOPE_IDENTITY();
 
 INSERT INTO [dbo].[Products] ([Name], [Slug], [Description], [Collection], [IsActive], [CreatedAt])
 VALUES
-    (N'Jordan Almonds – Pink', N'jordan-almonds-pink', N'Classic pink Jordan almonds perfected by Capco Confectionery.', N'Pastel', 1, @CreatedAt);
+    (N'Jordan Almonds – Pink', N'jordan-almonds-pink', N'Classic pink Jordan almonds perfected by Navya Confectionery.', N'Pastel', 1, @CreatedAt);
 SET @PinkProductId = SCOPE_IDENTITY();
 
 INSERT INTO [dbo].[Products] ([Name], [Slug], [Description], [Collection], [IsActive], [CreatedAt])
 VALUES
-    (N'Jordan Almonds – Blue', N'jordan-almonds-blue', N'Classic blue Jordan almonds perfected by Capco Confectionery.', N'Pastel', 1, @CreatedAt);
+    (N'Jordan Almonds – Blue', N'jordan-almonds-blue', N'Classic blue Jordan almonds perfected by Navya Confectionery.', N'Pastel', 1, @CreatedAt);
 SET @BlueProductId = SCOPE_IDENTITY();
 
 INSERT INTO [dbo].[Products] ([Name], [Slug], [Description], [Collection], [IsActive], [CreatedAt])
 VALUES
-    (N'Jordan Almonds – Yellow', N'jordan-almonds-yellow', N'Classic yellow Jordan almonds perfected by Capco Confectionery.', N'Pastel', 1, @CreatedAt);
+    (N'Jordan Almonds – Yellow', N'jordan-almonds-yellow', N'Classic yellow Jordan almonds perfected by Navya Confectionery.', N'Pastel', 1, @CreatedAt);
 SET @YellowProductId = SCOPE_IDENTITY();
 
 INSERT INTO [dbo].[Products] ([Name], [Slug], [Description], [Collection], [IsActive], [CreatedAt])
 VALUES
-    (N'Jordan Almonds – Green', N'jordan-almonds-green', N'Classic green Jordan almonds perfected by Capco Confectionery.', N'Pastel', 1, @CreatedAt);
+    (N'Jordan Almonds – Green', N'jordan-almonds-green', N'Classic green Jordan almonds perfected by Navya Confectionery.', N'Pastel', 1, @CreatedAt);
 SET @GreenProductId = SCOPE_IDENTITY();
 
 -- Images
@@ -482,5 +482,5 @@ SELECT ProductId, Color, SizeLabel, Sku, Price, NULL, WeightGrams, Upc, Inventor
 FROM @VariantTable;
 GO
 
-PRINT 'CapcoJordan database successfully provisioned on WINDESKTOP\SQLEXPRESS.';
+PRINT 'NavyaJordan database successfully provisioned on WINDESKTOP\SQLEXPRESS.';
 GO

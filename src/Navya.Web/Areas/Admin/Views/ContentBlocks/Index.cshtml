@@ -1,0 +1,19 @@
+@model IEnumerable<Navya.Domain.Entities.ContentBlock>
+<h1>Content Blocks</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Key</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var block in Model)
+    {
+        <tr>
+            <td>@block.Key</td>
+            <td><a class="btn" asp-action="Edit" asp-route-id="@block.Id">Edit</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
