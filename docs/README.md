@@ -13,11 +13,13 @@ Capco Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity 
 
 1. Copy `src/Capco.Web/appsettings.Development.json.sample` to `src/Capco.Web/appsettings.Development.json`.
 2. Update the following keys:
-   - `ConnectionStrings:DefaultConnection` – SQL Server connection string. The provided sample uses the `capco_app` SQL login created by the install script.
+   - `ConnectionStrings:DefaultConnection` – SQL Server connection string. The provided sample uses the `capco_app` SQL login created by the install script. If you prefer Windows authentication, replace the sample with `Server=WINDESKTOP\\SQLEXPRESS;Database=CapcoJordan;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True` and ensure the Windows account running the app has access to the database.
    - `Stripe:SecretKey` and `Stripe:PublishableKey` – Stripe test keys.
    - `Smtp:*` – Optional SMTP settings for order confirmation emails.
 
 ## Database Provisioning
+
+Before running the install script, confirm that SQL Server is configured for **SQL Server and Windows Authentication mode** (mixed mode) and restart the SQL Server service if you switch modes. This allows the application-specific `capco_app` SQL login to authenticate.
 
 The application expects the SQL Server database to be pre-provisioned. Run the install script to rebuild the schema, seed data, and create a dedicated SQL login on `WINDESKTOP\\SQLEXPRESS`:
 
@@ -25,7 +27,7 @@ The application expects the SQL Server database to be pre-provisioned. Run the i
 sqlcmd -S WINDESKTOP\\SQLEXPRESS -i docs/sql/Install_WINDESKTOP_SQLEXPRESS.sql
 ```
 
-Update `appsettings.Development.json` if you need a different server name or credentials.
+After the script completes, verify the login by connecting with `sqlcmd -S WINDESKTOP\\SQLEXPRESS -U capco_app -P Capco!Pass123 -d CapcoJordan`. Update `appsettings.Development.json` if you need a different server name or credentials.
 
 ## Running the Solution
 

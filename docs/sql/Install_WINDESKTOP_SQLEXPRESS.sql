@@ -26,10 +26,20 @@ GO
 ALTER DATABASE [CapcoJordan] SET MULTI_USER;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sys.sql_logins WHERE name = N'capco_app')
+IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'capco_app')
 BEGIN
-    CREATE LOGIN [capco_app] WITH PASSWORD = N'Capco!Pass123', CHECK_POLICY = OFF, CHECK_EXPIRATION = OFF;
+    DROP LOGIN [capco_app];
 END
+GO
+
+CREATE LOGIN [capco_app]
+    WITH PASSWORD = N'Capco!Pass123',
+         CHECK_POLICY = OFF,
+         CHECK_EXPIRATION = OFF,
+         DEFAULT_DATABASE = [CapcoJordan];
+GO
+
+ALTER LOGIN [capco_app] ENABLE;
 GO
 
 USE [CapcoJordan];
