@@ -3,6 +3,7 @@ using Capco.Data.Seed;
 using Capco.Domain.Identity;
 using Capco.Services.Extensions;
 using Capco.Services.Payments;
+using Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
