@@ -13,19 +13,19 @@ Capco Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity 
 
 1. Copy `src/Capco.Web/appsettings.Development.json.sample` to `src/Capco.Web/appsettings.Development.json`.
 2. Update the following keys:
-   - `ConnectionStrings:DefaultConnection` – SQL Server connection string.
+   - `ConnectionStrings:DefaultConnection` – SQL Server connection string. The provided sample uses the `capco_app` SQL login created by the install script.
    - `Stripe:SecretKey` and `Stripe:PublishableKey` – Stripe test keys.
    - `Smtp:*` – Optional SMTP settings for order confirmation emails.
 
 ## Database Provisioning
 
-The application expects the SQL Server database to be pre-provisioned. Run the install script to rebuild the schema and seed data on `WINDESKTOP\\SQLEXPRESS`:
+The application expects the SQL Server database to be pre-provisioned. Run the install script to rebuild the schema, seed data, and create a dedicated SQL login on `WINDESKTOP\\SQLEXPRESS`:
 
 ```powershell
 sqlcmd -S WINDESKTOP\\SQLEXPRESS -i docs/sql/Install_WINDESKTOP_SQLEXPRESS.sql
 ```
 
-Update `appsettings.Development.json` if you need a different server name.
+Update `appsettings.Development.json` if you need a different server name or credentials.
 
 ## Running the Solution
 

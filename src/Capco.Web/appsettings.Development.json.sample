@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=WINDESKTOP\\SQLEXPRESS;Database=CapcoJordan;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "DefaultConnection": "Server=WINDESKTOP\\SQLEXPRESS;Database=CapcoJordan;User Id=capco_app;Password=Capco!Pass123;MultipleActiveResultSets=true;TrustServerCertificate=True"
   },
   "Stripe": {
     "SecretKey": "sk_test_yourkey",
