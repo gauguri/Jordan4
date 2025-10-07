@@ -14,6 +14,12 @@ BEGIN
 END
 GO
 
+IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'capco_app')
+BEGIN
+    DROP LOGIN [capco_app];
+END
+GO
+
 CREATE DATABASE [CapcoJordan];
 GO
 
