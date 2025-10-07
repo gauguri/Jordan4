@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=CapcoAlmonds;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "DefaultConnection": "Server=WINDESKTOP\\SQLEXPRESS;Database=CapcoJordan;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
   "Stripe": {
     "SecretKey": "sk_test_yourkey",
