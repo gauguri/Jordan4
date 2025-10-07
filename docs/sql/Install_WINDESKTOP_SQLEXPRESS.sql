@@ -20,7 +20,35 @@ GO
 ALTER DATABASE [CapcoJordan] SET MULTI_USER;
 GO
 
+IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'capco_app')
+BEGIN
+    DROP LOGIN [capco_app];
+END
+GO
+
+CREATE LOGIN [capco_app]
+    WITH PASSWORD = N'Capco!Pass123',
+         CHECK_POLICY = OFF,
+         CHECK_EXPIRATION = OFF,
+         DEFAULT_DATABASE = [CapcoJordan];
+GO
+
+ALTER LOGIN [capco_app] ENABLE;
+GO
+
 USE [CapcoJordan];
+GO
+
+IF EXISTS (SELECT 1 FROM sys.database_principals WHERE name = N'capco_app')
+BEGIN
+    DROP USER [capco_app];
+END
+GO
+
+CREATE USER [capco_app] FOR LOGIN [capco_app] WITH DEFAULT_SCHEMA = [dbo];
+GO
+
+ALTER ROLE [db_owner] ADD MEMBER [capco_app];
 GO
 
 -- Identity core tables ----------------------------------------------------
