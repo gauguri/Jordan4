@@ -35,7 +35,7 @@ public class OrderServiceTests
         var order = await service.CreateOrderFromCartAsync(cart, new Address { Line1 = "1 Main", City = "East Hanover", State = "NJ", Zip = "07936", Country = "USA", Type = "Shipping" }, null, "guest@example.com");
 
         Assert.NotNull(order.OrderNumber);
-        Assert.Equal(1, order.Items.Count);
+        Assert.Single(order.Items);
         Assert.Equal("pending", order.Status);
     }
 }
