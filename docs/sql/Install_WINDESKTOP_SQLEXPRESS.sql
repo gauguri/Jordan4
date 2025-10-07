@@ -7,6 +7,13 @@
 USE [master];
 GO
 
+DECLARE @isIntegratedOnly INT = CONVERT(INT, SERVERPROPERTY('IsIntegratedSecurityOnly'));
+IF (@isIntegratedOnly = 1)
+BEGIN
+    THROW 51000, 'SQL Server is configured for Windows Authentication only. Enable mixed mode (SQL Server and Windows Authentication) before running this script so the capco_app login can authenticate.', 1;
+END
+GO
+
 IF DB_ID(N'CapcoJordan') IS NOT NULL
 BEGIN
     ALTER DATABASE [CapcoJordan] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;

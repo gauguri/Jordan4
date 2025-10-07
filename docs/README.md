@@ -19,7 +19,7 @@ Capco Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity 
 
 ## Database Provisioning
 
-Before running the install script, confirm that SQL Server is configured for **SQL Server and Windows Authentication mode** (mixed mode) and restart the SQL Server service if you switch modes. This allows the application-specific `capco_app` SQL login to authenticate.
+Before running the install script, confirm that SQL Server is configured for **SQL Server and Windows Authentication mode** (mixed mode) and restart the SQL Server service if you switch modes. This allows the application-specific `capco_app` SQL login to authenticate. The install script now stops with a descriptive error if the server is still configured for Windows Authentication only.
 
 The application expects the SQL Server database to be pre-provisioned. Run the install script to rebuild the schema, seed data, and create a dedicated SQL login on `WINDESKTOP\\SQLEXPRESS`:
 
