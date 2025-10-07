@@ -17,15 +17,15 @@ Capco Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity 
    - `Stripe:SecretKey` and `Stripe:PublishableKey` – Stripe test keys.
    - `Smtp:*` – Optional SMTP settings for order confirmation emails.
 
-## Database Migrations
+## Database Provisioning
+
+The application expects the SQL Server database to be pre-provisioned. Run the install script to rebuild the schema and seed data on `WINDESKTOP\\SQLEXPRESS`:
 
 ```powershell
-dotnet ef database update --project src/Capco.Data --startup-project src/Capco.Web
+sqlcmd -S WINDESKTOP\\SQLEXPRESS -i docs/sql/Install_WINDESKTOP_SQLEXPRESS.sql
 ```
 
-### Manual SQL Initialization
-
-An equivalent schema script is available at [`docs/init.sql`](init.sql).
+Update `appsettings.Development.json` if you need a different server name.
 
 ## Running the Solution
 
@@ -68,24 +68,15 @@ The `Capco.Tests` project includes service-level unit tests using xUnit and EF C
 /src
   /Capco.Web        # MVC site, Identity UI, Razor views, static assets
   /Capco.Domain     # Entities and identity models
-  /Capco.Data       # DbContext, EF Core configurations, migrations, seeding
+  /Capco.Data       # DbContext and EF Core configurations
   /Capco.Services   # Business logic services (catalog, cart, orders, payments)
 /tests
   /Capco.Tests      # Automated tests
 /docs
   README.md         # This file
-  init.sql          # Database DDL script
+  /sql              # SQL Server installation scripts
 /assets
   prompts.md        # Image generation prompts
 ```
-
-## Seeding
-
-On first run, the application seeds:
-
-- Five Jordan Almond products (White, Pink, Blue, Yellow, Green) with three size variants each.
-- Placeholder product imagery.
-- Content blocks for About, Wholesale, and Contact pages.
-- Default admin account and roles.
 
 Order confirmation emails are logged via a stub email sender; plug in SMTP to enable delivery.
