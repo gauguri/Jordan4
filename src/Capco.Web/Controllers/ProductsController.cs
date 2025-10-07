@@ -60,7 +60,6 @@ public class ProductsController : Controller
         TempData["Message"] = "Added to cart";
         return RedirectToAction("Index", "Cart");
     }
-}
 
     private string EnsureGuestToken()
     {
@@ -78,3 +77,4 @@ public class ProductsController : Controller
         });
         return token;
     }
+}
