@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Data;
 
 namespace Capco.Data.Seed;
 
@@ -17,22 +18,7 @@ public static class SeedData
         using var scope = services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
-        // Ensure the database and tables exist before attempting to seed identity data.
-        var database = context.Database;
-        if (database.GetService<IRelationalDatabaseCreator>() is { } relationalCreator)
-        {
-            if (!await relationalCreator.ExistsAsync())
-            {
-                await relationalCreator.CreateAsync();
-            }
-
-            if (!await relationalCreator.HasTablesAsync())
-            {
-                await relationalCreator.CreateTablesAsync();
-            }
-        }
-
-        await database.MigrateAsync();
+        await EnsureDatabaseAsync(context, logger);
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -56,6 +42,59 @@ public static class SeedData
             );
             await context.SaveChangesAsync();
         }
+    }
+
+    private static async Task EnsureDatabaseAsync(ApplicationDbContext context, ILogger logger)
+    {
+        var database = context.Database;
+
+        if (database.GetService<IRelationalDatabaseCreator>() is { } relationalCreator)
+        {
+            if (!await relationalCreator.ExistsAsync())
+            {
+                await relationalCreator.CreateAsync();
+            }
+
+            await database.MigrateAsync();
+
+            if (!await TableExistsAsync(database, "AspNetRoles"))
+            {
+                logger.LogWarning("AspNetRoles table missing. Recreating tables using EF Core metadata.");
+                await relationalCreator.CreateTablesAsync();
+            }
+        }
+        else
+        {
+            await database.EnsureCreatedAsync();
+        }
+    }
+
+    private static async Task<bool> TableExistsAsync(DatabaseFacade database, string tableName)
+    {
+        var connection = database.GetDbConnection();
+        await using var command = connection.CreateCommand();
+        command.CommandText = "SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = SCHEMA_NAME() AND TABLE_NAME = @table";
+
+        var parameter = command.CreateParameter();
+        parameter.ParameterName = "@table";
+        parameter.Value = tableName;
+        command.Parameters.Add(parameter);
+
+        var shouldCloseConnection = false;
+        if (connection.State != ConnectionState.Open)
+        {
+            await connection.OpenAsync();
+            shouldCloseConnection = true;
+        }
+
+        var result = await command.ExecuteScalarAsync();
+
+        if (shouldCloseConnection)
+        {
+            await connection.CloseAsync();
+        }
+
+        return result is not null;
     }
 
     private static async Task EnsureRolesAsync(RoleManager<IdentityRole> roleManager, ILogger logger)
