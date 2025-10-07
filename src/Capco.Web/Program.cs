@@ -12,8 +12,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
-    options.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+    options.UseSqlServer(connectionString, sqlOptions =>
+    {
+        sqlOptions.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+    });
 });
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
