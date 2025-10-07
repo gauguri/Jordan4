@@ -1,6 +1,6 @@
-# Capco Jordan Almonds Store
+# Navya Jordan Almonds Store
 
-Capco Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity Framework Core, and SQL Server. The site mirrors a MilkCratesDirect-style flow with responsive HTML/CSS, Stripe-ready checkout, and an admin dashboard.
+Navya Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity Framework Core, and SQL Server. The site mirrors a MilkCratesDirect-style flow with responsive HTML/CSS, Stripe-ready checkout, and an admin dashboard.
 
 ## Prerequisites
 
@@ -11,15 +11,15 @@ Capco Confectionery's e-commerce experience built with ASP.NET Core MVC, Entity 
 
 ## Configuration
 
-1. Copy `src/Capco.Web/appsettings.Development.json.sample` to `src/Capco.Web/appsettings.Development.json`.
+1. Copy `src/Navya.Web/appsettings.Development.json.sample` to `src/Navya.Web/appsettings.Development.json`.
 2. Update the following keys:
-   - `ConnectionStrings:DefaultConnection` – SQL Server connection string. The provided sample uses the `capco_app` SQL login created by the install script. If you prefer Windows authentication, replace the sample with `Server=WINDESKTOP\\SQLEXPRESS;Database=CapcoJordan;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True` and ensure the Windows account running the app has access to the database.
+   - `ConnectionStrings:DefaultConnection` – SQL Server connection string. The provided sample uses the `navya_app` SQL login created by the install script. If you prefer Windows authentication, replace the sample with `Server=WINDESKTOP\\SQLEXPRESS;Database=NavyaJordan;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True` and ensure the Windows account running the app has access to the database.
    - `Stripe:SecretKey` and `Stripe:PublishableKey` – Stripe test keys.
    - `Smtp:*` – Optional SMTP settings for order confirmation emails.
 
 ## Database Provisioning
 
-Before running the install script, confirm that SQL Server is configured for **SQL Server and Windows Authentication mode** (mixed mode) and restart the SQL Server service if you switch modes. This allows the application-specific `capco_app` SQL login to authenticate. The install script now stops with a descriptive error if the server is still configured for Windows Authentication only.
+Before running the install script, confirm that SQL Server is configured for **SQL Server and Windows Authentication mode** (mixed mode) and restart the SQL Server service if you switch modes. This allows the application-specific `navya_app` SQL login to authenticate. The install script now stops with a descriptive error if the server is still configured for Windows Authentication only.
 
 The application expects the SQL Server database to be pre-provisioned. Run the install script to rebuild the schema, seed data, and create a dedicated SQL login on `WINDESKTOP\\SQLEXPRESS`:
 
@@ -27,20 +27,20 @@ The application expects the SQL Server database to be pre-provisioned. Run the i
 sqlcmd -S WINDESKTOP\\SQLEXPRESS -i docs/sql/Install_WINDESKTOP_SQLEXPRESS.sql
 ```
 
-After the script completes, verify the login by connecting with `sqlcmd -S WINDESKTOP\\SQLEXPRESS -U capco_app -P Capco!Pass123 -d CapcoJordan`. Update `appsettings.Development.json` if you need a different server name or credentials.
+After the script completes, verify the login by connecting with `sqlcmd -S WINDESKTOP\\SQLEXPRESS -U navya_app -P Navya!Pass123 -d NavyaJordan`. Update `appsettings.Development.json` if you need a different server name or credentials.
 
 ## Running the Solution
 
 ```powershell
 dotnet build
-dotnet run --project src/Capco.Web
+dotnet run --project src/Navya.Web
 ```
 
 Navigate to `https://localhost:5001` (or the configured port).
 
 ### Default Accounts
 
-- **Admin:** `admin@capco.local` / `Pass!123`
+- **Admin:** `admin@navya.local` / `Pass!123`
 
 ## Stripe Webhooks (Development)
 
@@ -61,19 +61,19 @@ Run the automated tests:
 dotnet test
 ```
 
-The `Capco.Tests` project includes service-level unit tests using xUnit and EF Core's in-memory provider.
+The `Navya.Tests` project includes service-level unit tests using xUnit and EF Core's in-memory provider.
 
 ## Project Structure
 
 ```
-/CapcoAlmonds.sln
+/NavyaAlmonds.sln
 /src
-  /Capco.Web        # MVC site, Identity UI, Razor views, static assets
-  /Capco.Domain     # Entities and identity models
-  /Capco.Data       # DbContext and EF Core configurations
-  /Capco.Services   # Business logic services (catalog, cart, orders, payments)
+  /Navya.Web        # MVC site, Identity UI, Razor views, static assets
+  /Navya.Domain     # Entities and identity models
+  /Navya.Data       # DbContext and EF Core configurations
+  /Navya.Services   # Business logic services (catalog, cart, orders, payments)
 /tests
-  /Capco.Tests      # Automated tests
+  /Navya.Tests      # Automated tests
 /docs
   README.md         # This file
   /sql              # SQL Server installation scripts

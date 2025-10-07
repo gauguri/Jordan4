@@ -1,0 +1,22 @@
+@model IEnumerable<Navya.Domain.Entities.Product>
+<h1>Products</h1>
+<p><a class="btn" asp-action="Create">Add Product</a></p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Collection</th>
+            <th>Variants</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var product in Model)
+    {
+        <tr>
+            <td>@product.Name</td>
+            <td>@product.Collection</td>
+            <td>@product.Variants.Count</td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+@model Navya.Web.Models.CartViewModel
+<h1>Your Cart</h1>
+@if (TempData["Message"] is string message)
+{
+    <p>@message</p>
+}
+@if (!Model.Cart.Items.Any())
+{
+    <p>Your cart is empty. <a asp-controller="Shop" asp-action="Index">Continue shopping</a>.</p>
+}
+else
+{
+    <form method="get" class="search-bar" style="margin-bottom:1rem;">
+        <input type="text" name="promoCode" placeholder="Promo code" />
+        <button class="btn" type="submit">Apply</button>
+    </form>
+    if (!string.IsNullOrEmpty(Model.PromoMessage))
+    {
+        <p>@Model.PromoMessage</p>
+    }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Cart.Items)
+        {
+            <tr>
+                <td>@item.Variant.Product.Name<br /><small>@item.Variant.Color • @item.Variant.SizeLabel</small></td>
+                <td>
+                    <form asp-action="UpdateQuantity" method="post">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="number" min="0" name="quantity" value="@item.Qty" />
+                        <button type="submit" class="btn">Update</button>
+                    </form>
+                </td>
+                <td>@(item.UnitPriceSnapshot * item.Qty).ToString("C")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div style="text-align:right; margin-top:1rem;">
+        <p>Subtotal: <strong>@Model.Subtotal.ToString("C")</strong></p>
+        <p>Total: <strong>@Model.Total.ToString("C")</strong></p>
+        <a class="btn" asp-controller="Checkout" asp-action="Index">Checkout</a>
+    </div>
+}

@@ -1,0 +1,24 @@
+@model Navya.Web.Models.RegisterViewModel
+<h1>Create Your Navya Account</h1>
+<form method="post" class="product-grid" style="max-width:400px;">
+    @Html.AntiForgeryToken()
+    <label asp-for="FirstName"></label>
+    <input asp-for="FirstName" />
+    <span asp-validation-for="FirstName"></span>
+    <label asp-for="LastName"></label>
+    <input asp-for="LastName" />
+    <span asp-validation-for="LastName"></span>
+    <label asp-for="Email"></label>
+    <input asp-for="Email" />
+    <span asp-validation-for="Email"></span>
+    <label asp-for="Password"></label>
+    <input asp-for="Password" type="password" />
+    <span asp-validation-for="Password"></span>
+    <label asp-for="ConfirmPassword"></label>
+    <input asp-for="ConfirmPassword" type="password" />
+    <span asp-validation-for="ConfirmPassword"></span>
+    <button class="btn" type="submit">Register</button>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

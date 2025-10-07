@@ -1,0 +1,15 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=WINDESKTOP\\SQLEXPRESS;Database=NavyaJordan;User Id=navya_app;Password=Navya!Pass123;MultipleActiveResultSets=true;TrustServerCertificate=True"
+  },
+  "Stripe": {
+    "SecretKey": "sk_test_yourkey",
+    "PublishableKey": "pk_test_yourkey"
+  },
+  "Smtp": {
+    "Host": "smtp.local",
+    "Port": 1025,
+    "User": "",
+    "Password": ""
+  }
+}

@@ -1,0 +1,21 @@
+<h1>Contact Us</h1>
+@if (ViewBag.Html is string html)
+{
+    <div class="info">@Html.Raw(html)</div>
+}
+<div class="product-grid" style="grid-template-columns: repeat(auto-fit,minmax(240px,1fr));">
+    <div>
+        <h2>Flagship</h2>
+        <p>12 Almond Way<br />East Hanover, NJ 07936</p>
+    </div>
+    <div>
+        <h2>Call</h2>
+        <p>(973) 555-0110</p>
+        <h2>Email</h2>
+        <p><a href="mailto:hello@navyaalmonds.com">hello@navyaalmonds.com</a></p>
+    </div>
+    <div>
+        <h2>Visit</h2>
+        <div style="background:#BFD7FF;height:200px;border-radius:16px;display:flex;align-items:center;justify-content:center;">Map Placeholder</div>
+    </div>
+</div>
