@@ -1,4 +1,4 @@
-using Capco.Services.Cart;
+using Capco.Services.Carts;
 using Capco.Services.Catalog;
 using Capco.Services.Email;
 using Capco.Services.Inventory;

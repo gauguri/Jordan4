@@ -1,5 +1,5 @@
 using Capco.Domain.Entities;
-using Capco.Services.Cart;
+using Capco.Services.Carts;
 using Capco.Services.Pricing;
 using Capco.Web.Models;
 using Microsoft.AspNetCore.Http;

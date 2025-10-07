@@ -1,5 +1,5 @@
 using Capco.Domain.Entities;
-using Capco.Services.Cart;
+using Capco.Services.Carts;
 using Capco.Services.Orders;
 using Capco.Services.Payments;
 using Capco.Services.Pricing;
