@@ -11,7 +11,10 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
     "Server=WINDESKTOP\\SQLEXPRESS;Database=CapcoJordan;User Id=capco_app;Password=Capco!Pass123;MultipleActiveResultSets=true;TrustServerCertificate=True";
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+{
+    options.UseSqlServer(connectionString);
+    options.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+});
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     {
