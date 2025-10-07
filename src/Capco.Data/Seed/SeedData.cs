@@ -3,6 +3,8 @@ using Capco.Domain.Entities;
 using Capco.Domain.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -14,7 +16,23 @@ public static class SeedData
     {
         using var scope = services.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await context.Database.MigrateAsync();
+
+        // Ensure the database and tables exist before attempting to seed identity data.
+        var database = context.Database;
+        if (database.GetService<IRelationalDatabaseCreator>() is { } relationalCreator)
+        {
+            if (!await relationalCreator.ExistsAsync())
+            {
+                await relationalCreator.CreateAsync();
+            }
+
+            if (!await relationalCreator.HasTablesAsync())
+            {
+                await relationalCreator.CreateTablesAsync();
+            }
+        }
+
+        await database.MigrateAsync();
 
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
